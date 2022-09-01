@@ -57,20 +57,22 @@ def get_info(cipher):
         print( f"\t{info[i][0]}\t{info[i][1]}\t{info[i][2]}% \t {visual}" +
         f"{AVG_ENG_PERCENTAGES[i][0]} - {AVG_ENG_PERCENTAGES[i][1]}%\t  {info[i][0]} -> {AVG_ENG_PERCENTAGES[i][0]}")
 
+
 # sorts a list of tuples by the greater second value
-def sort_tuple_list(tuplist):
+def sort_tuple_list(tupList):
      
     # getting length of list of tuples
-    listlen = len(tuplist)
-    for i in range(0, listlen):
+    listLen = len(tupList)
+    for i in range(0, listLen):
          
-        for j in range(0, listlen-i-1):
-            if (tuplist[j][1] < tuplist[j + 1][1]):
-                temp = tuplist[j]
-                tuplist[j] = tuplist[j + 1]
-                tuplist[j + 1]= temp
-    return tuplist
- 
+        for j in range(0, listLen-i-1):
+            if (tupList[j][1] < tupList[j + 1][1]):
+                temp = tupList[j]
+                tupList[j] = tupList[j + 1]
+                tupList[j + 1]= temp
+    return tupList
+
+
 # check all ranges of caesar cipher on ciphertext
 def caesar_check(cipher):
     cipher = cipher.lower()
@@ -87,17 +89,16 @@ def caesar_check(cipher):
             else:
                 translated = translated + char
         print(f"\t{translated}")
-    
-def main():
-    # input("What is the filepath of your ciphertext? >> ")
-    filename = 'C:/Users/user/Documents/projects/cipher.txt'
-    cipher = get_total_ctext(filename)
 
-    ciphertext = "nybfxymjgjxytkynrjxnybfxyymjbtwxytkynrjjjxnybfxymjfljtkbnxitrnybfxymjfljtkkttqnxmsjxxkxx"
+
+def main():
+    filename = input("What is the filepath of your ciphertext? >> ")
+    cipher = get_total_ctext(filename)
     
     caesar_check(cipher)
     print()
-    get_info(ciphertext)
+    get_info(cipher)
+
 
 if __name__ == '__main__':
     main()
