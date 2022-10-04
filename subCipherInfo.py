@@ -1,7 +1,19 @@
 """
 @Author Reyce Salisbury
 Information gathering of a ciphertext
+
+Arg 1 can be a file path or a ciphertext.
+
+if argument 1 is a path to a file:
+    subCiperInfo will use the file to build the ciphertext
+
+if arg 1 is ciphertext:
+    subCipherInfo will use the given ciphertext
 """
+
+import sys
+from os.path import exists
+
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 AVG_ENG_PERCENTAGES = [
     ('E', 13.1), ('T', 9.23), ('A', 8.15), ('O', 7.76), ('I', 7.52), ('N', 6.8), ('S', 6.27), ('H', 6.1), 
@@ -92,8 +104,26 @@ def caesar_check(cipher):
 
 
 def main():
-    filename = input("What is the filepath of your ciphertext? >> ")
-    cipher = get_total_ctext(filename)
+    if len(sys.argv) == 1:  # no ciphertext provided in args, ask for filename
+        given = input("What is the ciphertext/filepath to ciphertext? >> ")
+        
+        if exists(given):
+            print(f"\nUsing ciphertext from {given}\n")
+            cipher = get_total_ctext(given)
+        else:
+            print("\nUsing ciphertext from input above.\n")
+            cipher = given
+
+    elif len(sys.argv) == 2:  # ciphertext provided in args
+        if exists(sys.argv[1]):
+            print(f"\nUsing ciphertext from {sys.argv[1]}\n")
+            cipher = get_total_ctext(sys.argv[1])
+            
+        else:
+            print("\nUsing ciphertext from argument input above.\n")
+            cipher = sys.argv[1]
+    else:
+        raise(ValueError("Too many arguments! Call with a ciphertext argument, or a filepath argument."))
     
     caesar_check(cipher)
     print()
@@ -102,3 +132,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
